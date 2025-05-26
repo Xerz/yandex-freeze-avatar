@@ -53,7 +53,7 @@ def update_avatar(driver):
     driver.wait_for_element("div[data-testid='snackbar-content'] span")
     return driver.get_text("div[data-testid='snackbar-content'] span")
 
-@browser(max_retry=2, block_images=True, tiny_profile=True, profile='pikachu', headless=True)
+@browser(max_retry=2, block_images=True, tiny_profile=True, profile='pikachu', headless=False)
 def auth_and_update(driver: Driver, data):
     # driver.enable_human_mode()
     # Visit the yandex id website via Google Referrer
@@ -72,7 +72,27 @@ def auth_and_update(driver: Driver, data):
     if title == "Авторизация":
         authorize(driver)
         # Ждём появления div с data-testid="profile-card-avatar"
-        driver.wait_for_page_to_be("https://id.yandex.ru/")
+        try:
+            driver.wait_for_page_to_be("https://id.yandex.ru/")
+        except Exception as e:
+            # Попали на код из пуш-уведомления, ждём появления файла code.txt и затем вводим из него код в input с id="passp-field-phoneCode"
+            code_field = driver.select("#passp-field-phoneCode")
+            logging.log(logging.INFO, "Waiting for code file to appear...")
+            # Проверяем раз в секунду, есть ли файл (не больше 60 секунд)
+            for _ in range(30):
+                if os.path.exists("code.txt"):
+                    with open("code.txt", "r") as f:
+                        code = f.read().strip()
+                    code_field.type(code)
+                    # next_button = driver.get_element_with_exact_text("Далее")
+                    # next_button.click()
+                    os.remove("code.txt")
+                    break
+                time.sleep(2)
+            else:
+                raise Exception("Code file not found within 60 seconds")
+
+
         title = driver.get_text("title")
 
     if title == "Яндекс ID":
