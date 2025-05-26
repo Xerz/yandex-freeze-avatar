@@ -89,6 +89,7 @@ def auth_and_update(driver: Driver, data):
                     # next_button = driver.get_element_with_exact_text("Далее")
                     # next_button.click()
                     os.remove("code.txt")
+                    driver.wait_for_page_to_be("https://id.yandex.ru/")
                     break
                 time.sleep(2)
             else:
