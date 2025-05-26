@@ -53,7 +53,7 @@ def update_avatar(driver):
     driver.wait_for_element("div[data-testid='snackbar-content'] span")
     return driver.get_text("div[data-testid='snackbar-content'] span")
 
-@browser(max_retry=2, block_images=True, tiny_profile=True, profile='pikachu', headless=False)
+@browser(max_retry=2, block_images=True, tiny_profile=True, profile='pikachu', headless=True)
 def auth_and_update(driver: Driver, data):
     # driver.enable_human_mode()
     # Visit the yandex id website via Google Referrer
