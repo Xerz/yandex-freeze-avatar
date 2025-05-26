@@ -32,7 +32,7 @@ Yandex Freeze Avatar — это сервис для автоматическог
 4. Заполните переменные в `.env`:
    - `YANDEX_API_TOKEN` — токен для доступа к API Яндекса.
    - `UTMN_LOGIN` и `UTMN_PASSWORD` — учетные данные для входа.
-   - `AVATAR_FILENAME` — имя файла аватара.
+   - `AVATAR_FILENAME` — имя файла аватара (он должен быть в папке `avatars`).
    - `TELEGRAM_API_TOKEN` и `TELEGRAM_CHAT_ID` — данные для отправки уведомлений через Telegram.
 
 ## Использование
