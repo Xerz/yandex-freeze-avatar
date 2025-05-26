@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  avatar-service:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: avatar-service
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["python", "main.py"]
