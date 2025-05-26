@@ -1,3 +1,4 @@
+import logging
 import os
 from botasaurus.browser import browser, Driver
 from dotenv import load_dotenv
