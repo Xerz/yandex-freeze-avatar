@@ -1,0 +1,3 @@
+botasaurus
+python-dotenv
+requests
