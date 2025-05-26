@@ -1,5 +1,7 @@
 import logging
 import os
+import time
+
 from botasaurus.browser import browser, Driver
 from dotenv import load_dotenv
 load_dotenv()
@@ -67,7 +69,6 @@ def auth_and_update(driver: Driver, data):
     title = driver.get_text("title")
 
     if title == "Are you not a robot?":
-        print("Failed to bypass Yandex protection")
         raise Exception("Failed to bypass Yandex protection")
 
     if title == "Авторизация":
