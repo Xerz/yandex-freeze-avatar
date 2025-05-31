@@ -14,6 +14,9 @@ def get_avatar_id():
         response.raise_for_status()  # Проверяем статус ответа
         return response.json()["default_avatar_id"]
     except requests.exceptions.RequestException as e:
+        if isinstance(e, requests.exceptions.ConnectionError) and "Temporary failure in name resolution" in str(e):
+            return None
+        else:
+            logging.error(f"Failed to fetch avatar ID: {e}", exc_info=True)
+            raise
         # Логируем ошибку и пробрасываем исключение
-        logging.error(f"Failed to fetch avatar ID: {e}", exc_info=True)
-        raise
