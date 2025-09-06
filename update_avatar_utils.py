@@ -28,23 +28,23 @@ def authorize(driver):
     driver.click("#submitButton")
 
 def update_avatar(driver):
-    # ждём появления div с классом начинающимся на profile-card_avatar
-    driver.wait_for_element("div[class^='profile-card_avatar__']")
+    # ждём появления div с классом начинающимся на _avatar_
+    driver.wait_for_element("div[class^='_avatar_']")
     #  Кликаем
-    driver.click("div[class^='profile-card_avatar__']")
+    driver.click("div[class^='_avatar_']")
     # Ждём появления div с параметром data-key="EditAvatar"
     driver.wait_for_element("div[data-key='EditAvatar']")
     # Кликаем
     driver.click("div[data-key='EditAvatar']")
     # Ждём появления img c class содержащим profile-avatar-editor-dialog_avatar__
-    driver.wait_for_element("img[class*='profile-avatar-editor-dialog_avatar__']")
+    driver.wait_for_element("img[class*='_avatar_']")
 
     img_path = os.path.join("avatars", os.environ.get("AVATAR_FILENAME", "islands-200.webp"))
     absolute_path = os.path.abspath(img_path)
-    # Находим input[type=file] который внутри div с классом начинающимся на image-picker_cell__
-    driver.wait_for_element("div[class^='image-picker_cell__'] input[type='file']")
+    # Находим input[type=file] который внутри div с классом начинающимся на _cell_
+    driver.wait_for_element("div[class^='_cell_'] input[type='file']")
     # выбираем его
-    img_input = driver.select("div[class^='image-picker_cell__'] input[type='file']")
+    img_input = driver.select("div[class^='_cell_'] input[type='file']")
     # Вставляем в этот input путь к файлу
     img_input.upload_file(absolute_path)
     # Щёлкаем по "Готово" → div с параметром data-testid="upload-button"
